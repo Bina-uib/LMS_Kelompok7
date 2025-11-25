@@ -5,7 +5,7 @@ class mainapp:
     def __init__(self,root):
         self.root=root
         self.root.title("LMS")
-        self.root.geometry("500x500")
+        self.root.geometry("500x250")
         ttk.Label(self.root,text="usename: ").pack()
         self.entry_username=ttk.Entry(self.root)
         self.entry_username.pack()
