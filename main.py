@@ -3,7 +3,7 @@ from tkinter import ttk
 
 class mainapp:
     def __init__(self,root):
-        self.root=root
+        self.root = root
         self.root.title("LMS")
         self.root.geometry("500x200")
         ttk.Label(self.root,text="usename: ").pack()
