@@ -6,7 +6,7 @@ class mainapp:
         self.root = root
         self.root.title("LMS")
         self.root.geometry("300x200")
-        ttk.Label(self.root,text="usename: ").pack()
+        ttk.Label(self.root,text="username: ").pack()
         self.entry_username=ttk.Entry(self.root)
         self.entry_username.pack()
         ttk.Label(self.root,text="pasword:").pack()
