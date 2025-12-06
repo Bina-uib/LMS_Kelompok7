@@ -4,6 +4,14 @@ from tkinter import messagebox
 import database
 
 class mainapp:
+<<<<<<< HEAD
+    def __init__(self,root):
+        self.root = root
+        self.root.title("LMS")
+        self.root.geometry("300x200")
+        ttk.Label(self.root,text="username: ").pack()
+        self.entry_username=ttk.Entry(self.root)
+=======
     def __init__(self, root):
         self.root = root
         self.root.title("LMS")
@@ -11,6 +19,7 @@ class mainapp:
 
         ttk.Label(self.root, text="username: ").pack()
         self.entry_username = ttk.Entry(self.root)
+>>>>>>> 372084b513046f35a00beeff1c543353faeee26b
         self.entry_username.pack()
 
     
