@@ -11,4 +11,4 @@ class Database:
 
 		self.cursor = self.mydb.cursor()
 
-db_conn = Database()
+db_conn = Database()2
