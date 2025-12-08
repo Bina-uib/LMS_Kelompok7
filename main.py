@@ -85,7 +85,7 @@ class mainapp:
         messagebox.showinfo("Info", "Menu Data Mahasiswa dibuka.\nSambungkan ke mahasiswa.py")
 
     # ============================
-    # HALAMAN PILIH KELAS MATA KULIAH
+    # PILIH KELAS
     # ============================
     def buka_mata_kuliah(self):
         for widget in self.root.winfo_children():
@@ -103,10 +103,39 @@ class mainapp:
         frame.pack(pady=10)
 
         Button(frame, text="KELAS TIMA", width=20, height=2,
-               command=lambda: self.tampilkan_mk("tima")).grid(row=0, column=0, padx=10, pady=10)
+               command=lambda: self.password_kelas("tima")).grid(row=0, column=0, padx=10, pady=10)
 
         Button(frame, text="KELAS TIMB", width=20, height=2,
-               command=lambda: self.tampilkan_mk("timb")).grid(row=0, column=1, padx=10, pady=10)
+               command=lambda: self.password_kelas("timb")).grid(row=0, column=1, padx=10, pady=10)
+
+    # ============================
+    # PASSWORD SEBELUM MASUK KELAS
+    # ============================
+    def password_kelas(self, nama_kelas):
+        pw_window = Toplevel(self.root)
+        pw_window.title("Password Kelas")
+        pw_window.geometry("300x150")
+        pw_window.resizable(False, False)
+
+        Label(pw_window, text=f"Masukkan Password Kelas {nama_kelas.upper()}",
+              font=("Segoe UI", 11, "bold")).pack(pady=10)
+
+        pw_entry = ttk.Entry(pw_window, width=25, show="*")
+        pw_entry.pack(pady=5)
+
+        def cek_password():
+            pw = pw_entry.get()
+
+            if nama_kelas == "tima" and pw == "1tima":
+                pw_window.destroy()
+                self.tampilkan_mk("tima")
+            elif nama_kelas == "timb" and pw == "1timb":
+                pw_window.destroy()
+                self.tampilkan_mk("timb")
+            else:
+                messagebox.showerror("Salah", "Password kelas salah!")
+
+        ttk.Button(pw_window, text="Masuk", command=cek_password).pack(pady=10)
 
     # ============================
     # TAMPILKAN DATA MATA KULIAH
@@ -139,10 +168,8 @@ class mainapp:
         tabel.column("nama_mk", width=230)
         tabel.column("dosen", width=200)
 
-        # ========================================
-        # TIMA → ambil dari tabel matakuliah
-        # TIMB → ambil dari tabel tabel_matakuliah
-        # ========================================
+        # TIMA → tabel matakuliah
+        # TIMB → tabel tabell_matakuliah
         if nama_kelas == "tima":
             query = """
             SELECT jadwal_matakuliah, jam_matakuliah, nama_matakuliah, nama_dosen_matakuliah 
