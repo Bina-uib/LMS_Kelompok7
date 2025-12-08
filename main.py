@@ -63,23 +63,18 @@ class mainapp:
 
         self.root.configure(bg="#f2f2f2")
 
-        # Tombol Logout kanan atas
         Button(self.root, text="Logout", bg="#d9534f", fg="white",
                command=self.halaman_login).place(x=430, y=10)
 
-        # Judul
         Label(self.root, text="MENU UTAMA LMS", bg="#f2f2f2",
               font=("Segoe UI", 17, "bold")).pack(pady=25)
 
-        # Frame tombol
         frame = Frame(self.root, bg="#f2f2f2")
         frame.pack(pady=10)
 
-        # Tombol Data Mahasiswa
         Button(frame, text="Data Mahasiswa", width=20, height=2,
                command=self.buka_data_mahasiswa).grid(row=0, column=0, padx=10, pady=10)
 
-        # Tombol Mata Kuliah
         Button(frame, text="Mata Kuliah", width=20, height=2,
                command=self.buka_mata_kuliah).grid(row=0, column=1, padx=10, pady=10)
 
@@ -114,7 +109,7 @@ class mainapp:
                command=lambda: self.tampilkan_mk("timb")).grid(row=0, column=1, padx=10, pady=10)
 
     # ============================
-    # TAMPILKAN DATA MATA KULIAH BERDASARKAN KELAS
+    # TAMPILKAN DATA MATA KULIAH
     # ============================
     def tampilkan_mk(self, nama_kelas):
         for widget in self.root.winfo_children():
@@ -129,21 +124,36 @@ class mainapp:
         frame = Frame(self.root)
         frame.pack()
 
-        kolom = ("id_mk", "nama_mk", "dosen")
+        kolom = ("hari", "jam", "nama_mk", "dosen")
 
         tabel = ttk.Treeview(frame, columns=kolom, show="headings", height=10)
         tabel.pack()
 
-        tabel.heading("id_mk", text="ID")
+        tabel.heading("hari", text="Hari")
+        tabel.heading("jam", text="Jam")
         tabel.heading("nama_mk", text="Nama Mata Kuliah")
         tabel.heading("dosen", text="Dosen Pengampu")
 
-        tabel.column("id_mk", width=50)
-        tabel.column("nama_mk", width=200)
-        tabel.column("dosen", width=150)
+        tabel.column("hari", width=100)
+        tabel.column("jam", width=100)
+        tabel.column("nama_mk", width=230)
+        tabel.column("dosen", width=200)
 
-        # AMBIL DATA DARI DATABASE
-        query = f"SELECT * FROM {nama_kelas}"
+        # ========================================
+        # TIMA → ambil dari tabel matakuliah
+        # TIMB → ambil dari tabel tabel_matakuliah
+        # ========================================
+        if nama_kelas == "tima":
+            query = """
+            SELECT jadwal_matakuliah, jam_matakuliah, nama_matakuliah, nama_dosen_matakuliah 
+            FROM matakuliah
+            """
+        else:
+            query = """
+            SELECT jadwal_matakuliah, jam_matakuliah, nama_matakuliah, nama_dosen_matakuliah 
+            FROM tabell_matakuliah
+            """
+
         database.db_conn.cursor.execute(query)
         data = database.db_conn.cursor.fetchall()
 
